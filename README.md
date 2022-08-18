@@ -14,9 +14,9 @@ ez-wp sitename
 
 1. Creates entry in `~/Homestead/Homestead.yaml` for sitename (change in options)[^1]
 2. Adds database entry in `~/Homestead/Homestead.yaml`
-3. Creates WP installation folder `sitename`
-4. Adds `sitename.test` to your `/etc/hosts` file
-5. Boot or Reload vagrant box and add `--provision` to the vagrant commmand.
+3. Creates WP installation folder `./current-path/sitename`
+4. Adds `sitename.test` to your `/etc/hosts` file using the IP in your `Homestead.yaml` file
+5. Boots or Reloads vagrant box and adds `--provision` to the vagrant commmand.
 6. Opens Default Browser on `sitename.test`
 
 # Prerequisites
