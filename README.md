@@ -21,7 +21,7 @@ ez-wp create my-blog
 
 # Prerequisites
 
-You must have Laravel Homestead install for this to work. 
+You must have [Laravel Homestead](https://laravel.com/docs/9.x/homestead) install for this to work. 
 
 ## Installation
 
