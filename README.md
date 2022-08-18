@@ -1,27 +1,27 @@
 # Who is this for?
 
-A person using [Laravel Homestead](https://laravel.com/docs/9.x/homestead) and also working on wordpress projects.
+A person using [Laravel Homestead](https://laravel.com/docs/9.x/homestead) to develop or test WordPress sites locally. (Mac OS, Linux)
 
 # How does it help ?
 
 It's a simple command to install a wp site locally using [Laravel Homestead](https://laravel.com/docs/9.x/homestead) box
 
 ```
-ez-wp create my-blog
+ez-wp sitename
 ```
 
 # What does it do ?
 
-1. Create entry in `~/Homestead/Homestead.yaml` for site (change in options)[^1]
+1. Creates entry in `~/Homestead/Homestead.yaml` for sitename (change in options)[^1]
 2. Adds database entry in `~/Homestead/Homestead.yaml`
-3. Creates WP installation folder
-4. Adds sitename.test to your `/etc/hosts` file
-5. Provision Vagrant Box
+3. Creates WP installation folder `sitename`
+4. Adds `sitename.test` to your `/etc/hosts` file
+5. Boot or Reload vagrant box and add `--provision` to the vagrant commmand.
 6. Opens Default Browser on `sitename.test`
 
 # Prerequisites
 
-You must have [Laravel Homestead](https://laravel.com/docs/9.x/homestead) install for this to work. 
+You must have [Laravel Homestead](https://laravel.com/docs/9.x/homestead) installed for the `ez-wp` command to work. 
 
 ## Installation
 
