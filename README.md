@@ -13,7 +13,7 @@ A person using [Laravel Homestead](https://laravel.com/docs/9.x/homestead) to de
 It's a simple command to install a wp site locally using [Laravel Homestead](https://laravel.com/docs/9.x/homestead) box. Saves you about `1-2 minutes` of manuall work.
 
 ```
-ez-wp sitename
+npx ez-wp sitename
 ```
 
 # What does it do ?
@@ -29,12 +29,6 @@ ez-wp sitename
 
 You must have [Laravel Homestead](https://laravel.com/docs/9.x/homestead) installed for the `ez-wp` command to work.
 
-## Installation
-
-```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/ez-wp/install/HEAD/install.sh)"
-```
-
 ## Options
 
 | Option               | Description                                                                           |
@@ -45,5 +39,3 @@ You must have [Laravel Homestead](https://laravel.com/docs/9.x/homestead) instal
 | `-p --php-v`         | `application-name.test` will be default if not specified                              |
 | `-c --cron`          | `false` by default                                                                    |
 | `-h --homesteadfile` | `/Homestead/Homestead.yaml` by default unles specifed                                 |
-| `-p --provision`     | Will run `vagrant up --provision` or `vagrant reload --provision ` in currrent folder |
-| `exec`               | any command to add to `vagrant up` or `vagrant reload`                                |
