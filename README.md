@@ -4,7 +4,7 @@ A person using [Laravel Homestead](https://laravel.com/docs/9.x/homestead) to de
 
 # How does it help ?
 
-It's a simple command to install a wp site locally using [Laravel Homestead](https://laravel.com/docs/9.x/homestead) box
+It's a simple command to install a wp site locally using [Laravel Homestead](https://laravel.com/docs/9.x/homestead) box. Saves you about `1-2 minutes` of manuall work.
 
 ```
 ez-wp sitename
