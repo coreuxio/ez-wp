@@ -1,3 +1,9 @@
+# Tasks
+
+- [x] Write README and document how the tool shoudl work
+- [ ] Development
+- [ ] Release
+
 # Who is this for?
 
 A person using [Laravel Homestead](https://laravel.com/docs/9.x/homestead) to develop or test WordPress sites locally. (Mac OS, Linux)
@@ -21,7 +27,7 @@ ez-wp sitename
 
 # Prerequisites
 
-You must have [Laravel Homestead](https://laravel.com/docs/9.x/homestead) installed for the `ez-wp` command to work. 
+You must have [Laravel Homestead](https://laravel.com/docs/9.x/homestead) installed for the `ez-wp` command to work.
 
 ## Installation
 
