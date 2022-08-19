@@ -4,6 +4,8 @@ import spinner, { createSpinner } from "nanospinner";
 import chalkAnimation from "chalk-animation";
 import inquirer from "inquirer";
 import fetch from "node-fetch";
+import figlet from "figlet";
+import gradient from "gradient-string";
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 
 async function welcome() {
@@ -70,9 +72,11 @@ async function askPhpVersion() {
 async function getPhpVersions() {
   let url = "https://www.php.net/releases/index.php?json";
   let settings = { method: "Get" };
+  const spinner = createSpinner(`Fetching PHP Versions`).start();
   const phpVersions = await fetch(url, settings)
     .then((res) => res.json())
     .then((json) => {
+      spinner.stop();
       return json;
     });
   const phpMajorVersion = Object.keys(phpVersions)
@@ -106,10 +110,17 @@ async function buildingSite(domain) {
   const spinner = createSpinner(`Creating ${domain.project_domain}`).start();
   await sleep(3000);
   if (true) {
-    spinner.success({ text: `😎 ${domain.project_domain} has been created` });
+    spinner.success({ text: `😎  we're done. No Biggie ;)` });
   } else {
     spinner.error({ text: `😅 I think we have an issue. Please report it.` });
   }
+}
+
+function completed(domain) {
+  const msg = `http://${domain.project_domain} Created !`;
+  figlet(msg, (err, data) => {
+    console.log(gradient.pastel.multiline(data));
+  });
 }
 
 async function ez_wp() {
@@ -125,6 +136,7 @@ async function ez_wp() {
   php = await askPhpVersion();
   wp = await askWpVersion();
   await buildingSite(domain);
+  await completed(domain);
   // TODO create entry in homesteadFileLocations for sitename
   // TODO Add database entry
   // TODO Create WP sintallation folder with selected wp version
