@@ -3,7 +3,7 @@
 import chalk from "chalk";
 import chalkAnimation from "chalk-animation";
 import inquirer from "inquirer";
-
+import fetch from "node-fetch";
 const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 
 async function welcome() {
@@ -53,17 +53,45 @@ async function askWpVersion() {
 }
 
 async function askPhpVersion() {
+  const phpVersions = await getWordpressVersions();
+  console.log(phpVersions);
+  let arrayForOptions = phpVersions.map((v) => v.name.replace(" (tar.gz)", ""));
   // TODO get current PHP versions avilable via API
   const answers = await inquirer.prompt({
     name: "php_version",
     type: "list",
     message: "PHP Version \n",
-    choices: ["8.1 lts", "7.4", "7.2", "7.0", "5.9"],
+    choices: arrayForOptions,
     default() {
-      return "8.1 lts";
+      return arrayForOptions.at(-1);
     },
   });
   return answers;
+}
+
+async function getWordpressVersions() {
+  let url = "https://www.php.net/releases/index.php?json";
+  let settings = { method: "Get" };
+  let lastVersions = [];
+  let count = 0;
+  const phpVersions = await fetch(url, settings)
+    .then((res) => res.json())
+    .then((json) => {
+      return json;
+    });
+  const phpMajorVersion = Object.keys(phpVersions)
+    .map((k) => parseInt(k))
+    .sort((a, b) => (a < b ? 1 : -1))
+    .slice(0, 3);
+  let versions = [];
+  for (const index in phpVersions) {
+    if (phpMajorVersion.includes(parseInt(index))) {
+      versions.push(
+        phpVersions[index].source.find((v) => v.filename.slice(-2) == "gz"),
+      );
+    }
+  }
+  return versions;
 }
 
 async function askHomesteadFileLocation() {
@@ -90,7 +118,7 @@ async function ez_wp() {
   php = await askPhpVersion();
   wp = await askWpVersion();
   homesteadFileLocation = await askHomesteadFileLocation();
-  sleep();
+  sleep(600);
   console.log(sitename, domain, php, wp, homesteadFileLocation);
   // TODO create entry in homesteadFileLocations for sitename
   // TODO Add database entry
