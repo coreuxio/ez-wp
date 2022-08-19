@@ -125,7 +125,6 @@ async function ez_wp() {
   php = await askPhpVersion();
   wp = await askWpVersion();
   await buildingSite(domain);
-  console.log(sitename, domain, php, wp, homesteadFileLocation);
   // TODO create entry in homesteadFileLocations for sitename
   // TODO Add database entry
   // TODO Create WP sintallation folder with selected wp version
