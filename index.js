@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import chalk from "chalk";
+import spinner, { createSpinner } from "nanospinner";
 import chalkAnimation from "chalk-animation";
 import inquirer from "inquirer";
 import fetch from "node-fetch";
@@ -18,7 +18,7 @@ async function askProjectname() {
   const answer = await inquirer.prompt({
     name: "project_name",
     type: "input",
-    message: "What is your project's name?",
+    message: "What is your project's name",
     default() {
       return "sitename";
     },
@@ -30,7 +30,7 @@ async function askProjectDomain(sitename) {
   const answer = await inquirer.prompt({
     name: "project_domain",
     type: "input",
-    message: "How about your domain name?",
+    message: "How about your domain name",
     default() {
       return `${sitename.project_name}.test`;
     },
@@ -53,10 +53,8 @@ async function askWpVersion() {
 }
 
 async function askPhpVersion() {
-  const phpVersions = await getWordpressVersions();
-  console.log(phpVersions);
+  const phpVersions = await getPhpVersions();
   let arrayForOptions = phpVersions.map((v) => v.name.replace(" (tar.gz)", ""));
-  // TODO get current PHP versions avilable via API
   const answers = await inquirer.prompt({
     name: "php_version",
     type: "list",
@@ -69,11 +67,9 @@ async function askPhpVersion() {
   return answers;
 }
 
-async function getWordpressVersions() {
+async function getPhpVersions() {
   let url = "https://www.php.net/releases/index.php?json";
   let settings = { method: "Get" };
-  let lastVersions = [];
-  let count = 0;
   const phpVersions = await fetch(url, settings)
     .then((res) => res.json())
     .then((json) => {
@@ -98,12 +94,22 @@ async function askHomesteadFileLocation() {
   const answers = await inquirer.prompt({
     name: "homestead_location",
     type: "input",
-    message: "Homestead File Location \n",
+    message: "Homestead File Location",
     default() {
       return "~/Homestead/Homestead.yaml";
     },
   });
   return answers;
+}
+
+async function buildingSite(domain) {
+  const spinner = createSpinner(`Creating ${domain.project_domain}`).start();
+  await sleep(3000);
+  if (true) {
+    spinner.success({ text: `😎 ${domain.project_domain} has been created` });
+  } else {
+    spinner.error({ text: `😅 I think we have an issue. Please report it.` });
+  }
 }
 
 async function ez_wp() {
@@ -115,10 +121,10 @@ async function ez_wp() {
   await welcome();
   sitename = await askProjectname();
   domain = await askProjectDomain(sitename);
+  homesteadFileLocation = await askHomesteadFileLocation();
   php = await askPhpVersion();
   wp = await askWpVersion();
-  homesteadFileLocation = await askHomesteadFileLocation();
-  sleep(600);
+  await buildingSite(domain);
   console.log(sitename, domain, php, wp, homesteadFileLocation);
   // TODO create entry in homesteadFileLocations for sitename
   // TODO Add database entry
